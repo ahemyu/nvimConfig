@@ -5,19 +5,17 @@ return {
     "nvim-telescope/telescope.nvim",
   },
   branch = "regexp",
+  ft = "python",
   opts = {
-    settings = {
-      options = {
-        notify_user_on_venv_activation = true,
-      },
-      search = {
-        uv = {
-          command = "fd -t d -a .venv$ $CWD",
-        },
+    options = {
+      notify_user_on_venv_activation = true,
+    },
+    search = {
+      uv = {
+        command = "$FD '/\\.venv/bin/python$' $CWD --full-path --color never -HI -a -L",
       },
     },
   },
-  event = "VeryLazy",
   keys = {
     { "<leader>cv", "<cmd>VenvSelect<cr>", desc = "Select VirtualEnv" },
     { "<leader>cc", "<cmd>VenvSelectCached<cr>", desc = "Select Cached VirtualEnv" },
