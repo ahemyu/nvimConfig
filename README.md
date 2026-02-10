@@ -8,9 +8,9 @@ After cloning this repo run:
 
 This installs Neovim stable, copies this config to `~/.config/nvim`, syncs plugins, and installs Mason tools.
 
-## Windows one-shot install
+## Windows install
 
-After cloning this repo on the target machine, run in PowerShell:
+After cloning this repo run in PowerShell:
 
 ```powershell
 ./install-windows.ps1
