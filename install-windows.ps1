@@ -25,6 +25,7 @@ $MasonPackages = @(
   "sqlfluff",
   "stylua",
   "taplo",
+  "tree-sitter-cli",
   "vtsls",
   "yaml-language-server"
 )
@@ -112,8 +113,22 @@ Get-ChildItem -Path $ScriptDir -Force |
 Write-Host "==> Bootstrapping LazyVim plugins"
 & $NvimExe --headless "+Lazy! sync" +qa
 
-Write-Host "==> Installing Mason tools"
-& $NvimExe --headless "+MasonInstall $($MasonPackages -join ' ')" +qa
+Write-Host "==> Installing Mason tools (best effort)"
+$masonCmd = "MasonInstall $($MasonPackages -join ' ')"
+$env:MASON_PACKAGES = ($MasonPackages -join ' ')
+$masonOutput = & $NvimExe --headless '+lua local pkgs=vim.split(vim.env.MASON_PACKAGES or "", " ", { trimempty = true }); local ok,mason=pcall(require,"mason"); if not ok then vim.api.nvim_err_writeln("MASON_SETUP_FAILED"); vim.cmd("cquit 1"); end; if not mason.has_setup then mason.setup() end; require("mason.api.command").MasonInstall(pkgs, {})' +qa 2>&1
+$masonExitCode = $LASTEXITCODE
+Remove-Item Env:MASON_PACKAGES -ErrorAction SilentlyContinue
+if ($masonOutput) {
+  $masonOutput | Out-Host
+}
+if ($masonExitCode -eq 0) {
+  Write-Host "==> Mason install command completed"
+} else {
+  Write-Warning "Headless Mason install did not complete."
+  Write-Host "Open Neovim and run:"
+  Write-Host "  :$masonCmd"
+}
 
 Write-Host ""
 Write-Host "Done. Open Neovim with: nvim"

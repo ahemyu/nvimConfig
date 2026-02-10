@@ -23,6 +23,7 @@ MASON_PACKAGES=(
   sqlfluff
   stylua
   taplo
+  tree-sitter-cli
   vtsls
   yaml-language-server
 )
@@ -85,8 +86,24 @@ echo "==> Bootstrapping LazyVim plugins"
 require_cmd nvim
 nvim --headless "+Lazy! sync" +qa
 
-echo "==> Installing Mason tools"
-nvim --headless "+MasonInstall ${MASON_PACKAGES[*]}" +qa
+echo "==> Installing Mason tools (best effort)"
+MASON_CMD="MasonInstall ${MASON_PACKAGES[*]}"
+MASON_RC=0
+MASON_OUT="$(
+  MASON_PACKAGES="${MASON_PACKAGES[*]}" nvim --headless \
+    '+lua local pkgs=vim.split(vim.env.MASON_PACKAGES or "", " ", { trimempty = true }); local ok,mason=pcall(require,"mason"); if not ok then vim.api.nvim_err_writeln("MASON_SETUP_FAILED"); vim.cmd("cquit 1"); end; if not mason.has_setup then mason.setup() end; require("mason.api.command").MasonInstall(pkgs, {})' \
+    +qa 2>&1
+)" || MASON_RC=$?
+if [ -n "$MASON_OUT" ]; then
+  printf '%s\n' "$MASON_OUT"
+fi
+if [ "$MASON_RC" -eq 0 ]; then
+  echo "==> Mason install command completed"
+else
+  echo "WARNING: Headless Mason install did not complete."
+  echo "Open Neovim and run:"
+  echo "  :${MASON_CMD}"
+fi
 
 echo ""
 echo "Done. Open Neovim with: nvim"
