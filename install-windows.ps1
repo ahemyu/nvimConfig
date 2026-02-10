@@ -19,6 +19,7 @@ $MasonPackages = @(
   "markdown-toc",
   "marksman",
   "neocmakelsp",
+  "basedpyright",
   "ruff",
   "shfmt",
   "sqlfluff",

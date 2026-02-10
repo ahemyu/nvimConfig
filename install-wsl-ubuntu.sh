@@ -17,6 +17,7 @@ MASON_PACKAGES=(
   markdown-toc
   marksman
   neocmakelsp
+  basedpyright
   ruff
   shfmt
   sqlfluff

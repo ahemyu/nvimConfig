@@ -11,7 +11,7 @@ This installs Neovim stable, copies this config to `~/.config/nvim`, syncs plugi
 If the script warns that headless Mason installation did not complete, open Neovim and run:
 
 ```vim
-:MasonInstall angular-language-server cmakelang cmakelint json-lsp lua-language-server markdownlint-cli2 markdown-toc marksman neocmakelsp ruff shfmt sqlfluff stylua taplo tree-sitter-cli vtsls yaml-language-server
+:MasonInstall angular-language-server cmakelang cmakelint json-lsp lua-language-server markdownlint-cli2 markdown-toc marksman neocmakelsp basedpyright ruff shfmt sqlfluff stylua taplo tree-sitter-cli vtsls yaml-language-server
 ```
 
 ## Windows install
