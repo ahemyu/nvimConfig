@@ -1,11 +1,6 @@
-# 💤 LazyVim
+## Ubuntu install
 
-A starter template for [LazyVim](https://github.com/LazyVim/LazyVim).
-Refer to the [documentation](https://lazyvim.github.io/installation) to get started.
-
-## WSL Ubuntu one-shot install
-
-After cloning this repo on the target machine, run:
+After cloning this repo run:
 
 ```bash
 ./install-wsl-ubuntu.sh
