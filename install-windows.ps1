@@ -11,6 +11,9 @@ $Timestamp = Get-Date -Format "yyyyMMdd-HHmmss"
 
 $MasonPackages = @(
   "angular-language-server",
+  "clang-format",
+  "clangd",
+  "codelldb",
   "cmakelang",
   "cmakelint",
   "json-lsp",

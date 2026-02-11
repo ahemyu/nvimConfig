@@ -9,6 +9,9 @@ TIMESTAMP="$(date +%Y%m%d-%H%M%S)"
 
 MASON_PACKAGES=(
   angular-language-server
+  clang-format
+  clangd
+  codelldb
   cmakelang
   cmakelint
   json-lsp

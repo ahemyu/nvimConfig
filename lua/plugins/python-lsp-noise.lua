@@ -6,21 +6,7 @@ return {
         settings = {
           basedpyright = {
             analysis = {
-              typeCheckingMode = "basic",
-              diagnosticSeverityOverrides = {
-                reportMissingParameterType = "none",
-                reportMissingTypeArgument = "none",
-                reportMissingTypeStubs = "none",
-                reportUnknownArgumentType = "none",
-                reportUnknownLambdaType = "none",
-                reportUnknownMemberType = "none",
-                reportUnknownParameterType = "none",
-                reportUnknownVariableType = "none",
-                reportUntypedBaseClass = "none",
-                reportUntypedClassDecorator = "none",
-                reportUntypedFunctionDecorator = "none",
-                reportUntypedNamedTuple = "none",
-              },
+              typeCheckingMode = "off",
             },
           },
         },
@@ -37,6 +23,12 @@ return {
           },
         },
       },
+    },
+    setup = {
+      basedpyright = function(_, server_opts)
+        server_opts.handlers = server_opts.handlers or {}
+        server_opts.handlers["textDocument/publishDiagnostics"] = function() end
+      end,
     },
   },
 }
